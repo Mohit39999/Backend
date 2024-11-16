@@ -1,6 +1,6 @@
 import deotenv from "dotenv";
+import {app} from "./app.js";
 
-import express from "express";
 import connectDB from "./db/index.js";
 
 deotenv.config({
@@ -8,4 +8,11 @@ deotenv.config({
 });
 
 
-connectDB();
+connectDB()
+.then(()=>{
+    app.listen(process.env.PORT,()=>console.log(`Server is running on port ${process.env.PORT}`));
+}
+)
+.catch((error)=>{
+    console.log("MONGODB CONNECTION failed !!!",error);
+})
